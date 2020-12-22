@@ -1,0 +1,21 @@
+call_number,section,name,instructor_first_name,instructor_last_name,taken
+String,String,String,String,String,boolean
+CSCi 1001,001,Overview of Computer Science,Chris,Dovolis,false
+CSCi 1113,001,Intro to C/C++,Phillip,Barry,false
+CSCi 1113,010,Intro to C/C++,Daniel,Kluver,false
+CSCi 1113,020,Intro to C/C++,David,Nieuwsma,false
+CSCi 1133,001,Intro to Programming Concepts,Shana,Watters,true
+CSCi 1133,010,Intro to Programming Concepts,Shana,Watters,true
+CSCi 1133,020,Intro to Programming Concepts,Stephen,Guy,true
+CSCi 1913,001,Intro to Algs. & Program Dev.,James,Moen,false
+CSCi 1913,010,Intro to Algs. & Program Dev.,Daniel,Kluver,false
+CSCi 1933,001,Intro to Algs. & Data Str.,Chris,Dovolis,true
+CSCi 1933,010,Intro to Algs. & Data Str.,Chris,Dovolis,true
+CSCi 1933H,001,Honors Intro to Algs. & Data Str.,Chris,Dovolis,false
+CSCi 2011,001,Disc. Structures,Kathyrn,Jensen,true
+CSCi 2011,010,Disc. Structures,Nathan,Taylor,true
+CSCi 2011H,001,Honors Disc. Structures,Ravi,Janardan,false
+CSCi 2021,001,Machine Architecture and Org,Chris,Kauffman,true
+CSCi 2021,010,Machine Architecture and Org,Chris,Kauffman,true
+CSCi 2041,001,Adv. Programming Principles,Nick,Hopper,true
+CSCi 2041,010,Adv. Programming Principles,Eric,Van Wyk,true
