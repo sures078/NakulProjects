@@ -1,0 +1,235 @@
+                              ____________
+
+                               A4 WRITEUP
+                              ____________
+
+
+- Name: Nakul Suresh
+- NetID: sures078
+
+Answer the questions below according to the assignment
+specification. Write your answers directly in this text file and submit
+it along with your code.
+
+
+PROBLEM 1: optimized_matrix_trans_mult_vec()
+============================================
+
+  Do your timing study on apollo.cselabs.umn.edu
+
+
+(A) Paste Source Code
+~~~~~~~~~~~~~~~~~~~~~
+
+  Paste a copy of your source code for the function
+  optimized_matrix_trans_mult_vec() below.
+
+  int optimized_matrix_trans_mult_vec(matrix_t mat, vector_t vec, vector_t res) {
+    //error checking
+    if(mat.rows != vec.len){
+      printf("mat.rows (%ld) != vec.len (%ld)\n",mat.rows,vec.len);
+      return 1;
+    }
+
+    //error checking
+    if(mat.cols != res.len){
+      printf("mat.cols (%ld) != res.len (%ld)\n",mat.cols,res.len);
+      return 2;
+    }
+
+    int vals[mat.cols]; //will temporarily store all results
+
+    for (int index = 0; index < mat.cols; index++) { //zeros out vals
+      vals[index] = 0;
+    }
+
+    int i, j;
+
+    for(i = 0; i < mat.rows; i++) { //ITERATING OUTER LOOP BY ROWS
+      for(j = 0; j < mat.cols; j+=4) { //STEP SIZE INCREASED TO 4
+        int vecNum = VGET(vec,i); //vec at index i, will be used to multiply by first 4 elements in mat
+
+        //LOOP UNROLLING
+        int matNum1 = MGET(mat,i,j);
+        int product1 = matNum1 * vecNum;
+        vals[j] += product1; //adds on product1 to current value at vals[j]
+
+        int matNum2 = MGET(mat,i,j+1);
+        int product2 = matNum2 * vecNum;
+        vals[j+1] += product2; //adds on product2 to current value at vals[j+1]
+
+        int matNum3 = MGET(mat,i,j+2);
+        int product3 = matNum3 * vecNum;
+        vals[j+2] += product3; //adds on product3 to current value at vals[j+2]
+
+        int matNum4 = MGET(mat,i,j+3);
+        int product4 = matNum4 * vecNum;
+        vals[j+3] += product4; //adds on product4 to current value at vals[j+3]
+      }
+      for (; j < mat.cols; j++) { //cleans up any entries not multiplied
+        int matNum = MGET(mat,i,j);
+        int vecNum = VGET(vec,j);
+        int product = matNum * vecNum;
+        vals[j] += product;
+      }
+    }
+
+    for (int k = 0; k < mat.cols; k++) { //sets res = vals
+      VSET(res, k, vals[k]);
+    }
+
+  return 0;
+
+  }
+
+
+(B) Timing on Apollo
+~~~~~~~~~~~~~~~~~~~~
+
+  Paste a copy of the results of running `mult_bench' on
+  apollo.cselabs.umn.edu in the space below which shows how your
+  performance optimizations improved on the baseline codes.
+
+  SIZE       BASE       NORM        OPT BSPDUP NSPDUP POINTS
+   512 8.1900e-04 7.3400e-04 2.4200e-04   3.38   3.03      3
+  1024 3.2060e-03 2.2730e-03 9.8300e-04   3.26   2.31      2
+  1101 3.2920e-03 2.6190e-03 1.1190e-03   2.94   2.34      2
+  2048 2.0940e-02 9.1130e-03 3.9000e-03   5.37   2.34      3
+  4096 1.6316e-01 3.6892e-02 1.5851e-02  10.29   2.33      5
+  8192 1.2129e+00 1.4669e-01 6.3424e-02  19.12   2.31     10
+RAW POINTS: 25
+TOTAL POINTS: 25 / 35
+
+I have gotten 36/35 before but Apollo has not been working properly, hence these
+results.
+
+
+(C) Optimizations
+~~~~~~~~~~~~~~~~~
+
+  Describe in some detail the optimizations you used to speed the code
+  up.  THE CODE SHOULD CONTAIN SOME COMMENTS already to describe these
+  but in the section below, describe in English the techniques you used
+  to make the code run faster.  Format your descriptions into discrete
+  chunks such as.
+        Optimization 1: Switching iteration methods by using mat.rows in the outer
+        loop and mat.cols in the inner loop optimizes the function. This should make
+        the function run faster because the elements in the matrix are accessed
+        more in sequence. Previously, the loop was iterating by columns, jumping
+        throughout the matrix, which takes more time. If we iterate through the entire
+        row instead of jumping to different rows, we will go in order without skipping,
+        requiring less time.
+
+        Optimization 2: Loop unrolling also optimizes the function. This should make
+        the function run faster because the inner loop had a greater step size.
+        Using a greater step size ensures that the loop condition is failed quicker
+        (loop condition must not fail to keep loop running). Instead, more work is
+        done in one iteration to increase efficiency.
+
+  Full credit solutions will have a least two optimizations.
+
+
+PROBLEM 2: Timing Search Algorithms
+===================================
+
+  Do your timing study on apollo.cselabs.umn.edu. In most cases, report
+  times larger than 1e-03 seconds as times shorter than this are
+  unreliable. Run searches for more repetitions to lengthen run times.
+
+
+(A) Min Size for Algorithmic Differences
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Determine the size of input array does one start to see a measurable
+  difference in the performance of the linear and logarithmic
+  algorithms.  Produce a timing table which includes all algorithms
+  which clearly demonstrates an uptick in the times associated with some
+  while others remain much lower.  Identify what size this appears to be
+  a occur.
+
+  LENGTH	SEARCHES	array		list		binary		tree
+     2	      40	3.0000e-06	2.0000e-06	2.0000e-06	2.0000e-06
+     4	      80	2.0000e-06	2.0000e-06	2.0000e-06	2.0000e-06
+     8	     160	4.0000e-06	5.0000e-06	5.0000e-06	4.0000e-06
+    16	     320	1.3000e-05	1.9000e-05	1.0000e-05	8.0000e-06
+    32	     640	5.5000e-05	7.3000e-05	2.4000e-05	1.8000e-05
+    64	    1280	1.9800e-04	2.6600e-04	6.0000e-05	4.0000e-05
+   128	    2560	9.3400e-04	1.0330e-03	1.4900e-04	1.1000e-04
+   256	    5120	2.9660e-03	4.0180e-03	3.6600e-04	2.7100e-04
+   512	   10240	1.1845e-02	1.6077e-02	8.9800e-04	6.6400e-04
+  1024	   20480	4.6456e-02	6.7305e-02	2.0280e-03	1.5550e-03
+  2048	   40960	1.8530e-01	3.8564e-01	4.4050e-03	3.3660e-03
+  4096	   81920	7.3976e-01	1.6945e+00	9.2200e-03	7.1210e-03
+  8192	  163840	2.9606e+00	9.5702e+00	1.9453e-02	1.5065e-02
+ 16384	  327680	1.1841e+01	7.3291e+01	4.0985e-02	3.2536e-02
+
+  At size 256, there is a noticeable difference between the timing of the linear
+  and logarithmic searches. We could see the logarithmic functions go faster.
+
+
+(B) Linear Search in List vs Array
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Determine whether the linear array and linked list search remain
+  approximately at the same performance level as size increases to large
+  data or whether one begins to become favorable over other. Determine
+  the approximate size at which this divergence becomes obvious. Discuss
+  reasons WHY this difference arises.
+
+  A linear search for a linked list and an array are both O(n). At size 4096, we
+  see a significant difference arising in time. Array is e-01 and linked list is e+00.
+  Nodes of a linked list are allocated  all over memory, while arrays are allocated
+  in a block. This means it will eventually take more time to find the nodes in memory
+  compared to array elements in sequence.
+
+
+(C) Binary Search in Tree vs Array
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Compare the binary array search and binary tree search on small to
+  very large arrays. Determine if there is a size at which the
+  performance of these two begins to diverge. If so, describe why this
+  might be happening based on your understanding of the data structures
+  and the memory system. If not, describe why you believe there is
+  little performance difference between the two.
+
+  There is little performance difference between the two algorithms. Despite a
+  binary search tree storing data in an array, it involves jumping around the array
+  to find the correct value. The binary tree is similar in that it jumps from node to node:
+  left branch or right branch. Therefore, since both algorithms involve jumping around in memory,
+  they have similar times.
+
+
+(D) Caching Effects on Algorithms
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  It is commonly believed that memory systems that feature a Cache will
+  lead to arrays performing faster than linked structures such as Linked
+  Lists and Binary Search Trees. Describe whether your timings confirm
+  or refute this belief.  Address both types of algorithms in your
+  answer:
+  - What effects does Cache have on Linear Search in arrays and lists
+    and why?
+
+    When what you're looking for is not in Cache, you must go to main memory to
+    retrieve the data. As a result, the data and its surrounding elements are moved into
+    cache. Since array data are stored next to each other, they will also be moved to the
+    cache. It is faster to find data in the cache. When you search for the following data,
+    it'll be readily available in the cache (surrounding values), which is more beneficial.
+    For linked lists, the surrounding data is irrelevant so moving that surrounding data is
+    not beneficial for accessing the values of the linked list.
+
+  - What effects does Cache have on Binary Search in arrays and trees
+    and why?
+
+    Cache is not relevant for both data structures because searching inside them
+    involves jumping around. Therefore, surrounding values moved into cache do not
+    provide an advantage for the binary search arrays over binary trees.
+
+
+(E) OPTIONAL MAKEUP CREDIT
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  If you decided to make use of a table of function pointers/structs
+  which is worth makeup credit, describe your basic design for this
+  below.

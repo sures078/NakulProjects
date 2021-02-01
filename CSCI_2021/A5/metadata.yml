@@ -1,0 +1,12 @@
+---
+:id: 26577423
+:submitters:
+- :name: Nakul Suresh
+  :email: sures078@umn.edu
+:created_at: !ruby/object:ActiveSupport::TimeWithZone
+  utc: 2019-12-13 04:00:15.820597000 Z
+  zone: !ruby/object:ActiveSupport::TimeZone
+    name: America/Los_Angeles
+  time: 2019-12-12 20:00:15.820597000 Z
+:status: processed
+:score: 99.5

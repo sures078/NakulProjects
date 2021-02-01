@@ -1,0 +1,35 @@
+----------------------------------------
+PROBLEM 1: test_batt_update.c binary tests for batt_update.c
+TEST  1: set_batt_from_ports()          3700V            : OK
+TEST  2: set_batt_from_ports()          3482V            : OK
+TEST  3: set_batt_from_ports()          3310V            : OK
+TEST  4: set_batt_from_ports()          3310V-percent    : OK
+TEST  5: set_batt_from_ports()          3800V-percent    : OK
+TEST  6: set_batt_from_ports()          4217V-percent    : OK
+TEST  7: set_batt_from_ports()          3240V-percent    : OK
+TEST  8: set_batt_from_ports()          3015-percent     : OK
+TEST  9: set_display_from_batt()        3700V            : OK
+TEST 10: set_display_from_batt()        3482V            : OK
+TEST 11: set_display_from_batt()        3310V            : OK
+TEST 12: set_display_from_batt()        3310V-percent    : OK
+TEST 13: set_display_from_batt()        3800V-percent    : OK
+TEST 14: set_display_from_batt()        4217V-percent    : OK
+TEST 15: set_display_from_batt()        3240V-percent    : OK
+TEST 16: set_display_from_batt()        3015-percent     : OK
+TEST 17: batt_update()                  3700V            : OK
+TEST 18: batt_update()                  3482V            : OK
+TEST 19: batt_update()                  3310V            : OK
+TEST 20: batt_update()                  3310V-percent    : OK
+TEST 21: batt_update()                  3800V-percent    : OK
+TEST 22: batt_update()                  4217V-percent    : OK
+TEST 23: batt_update()                  3240V-percent    : OK
+TEST 24: batt_update()                  3015-percent     : OK
+TEST 25: set_batt_from_ports()          status-0b10010   : OK
+TEST 26: batt_update()                  status-0b10010   : OK
+TEST 27: set_batt_from_ports()          status-0b01101   : OK
+TEST 28: batt_update()                  status-0b01101   : OK
+TEST 29: set_batt_from_ports()          negative-volts   : OK
+TEST 30: batt_update()                  negative-volts   : OK
+----------------------------------------------------------------
+Passed: 30 / 30 tests with 0.5 points per test
+Score: 15.0 / 15.0 points

@@ -1,0 +1,1231 @@
+./test_patchsym.sh
+Loading tests from test_patchsym_data.sh... 10 tests loaded
+Running 10 tests
+
+RUNNING NORMAL TESTS
+TEST  1 get globals string1                 : FAIL: Output Incorrect
+-------------------------------------
+OUTPUT: EXPECT   vs   ACTUAL
+							      >	> unset _mlre _mlIFS _mlshdbg
+							      >	> '[' 0 = 1 ']'
+							      >	> '[' -n x ']'
+							      >	> _mlIFS=' 	
+							      >	'
+							      >	> IFS=' '
+							      >	> '[' -n '' ']'
+							      >	>> /usr/bin/tclsh /usr/local/modules-tcl/libexec/modulecmd.tc
+							      >	> eval 'module() {
+							      >	   unset _mlre _mlIFS _mlshdbg;
+							      >	   if [ "${MODULES_SILENT_SHELL_DEBUG:-0}" = '\''1'\'' ]; the
+							      >	      case "$-" in
+							      >	         *v*x*) set +vx; _mlshdbg='\''vx'\'' ;;
+							      >	         *v*) set +v; _mlshdbg='\''v'\'' ;;
+							      >	         *x*) set +x; _mlshdbg='\''x'\'' ;;
+							      >	         *) _mlshdbg='\'''\'' ;;
+							      >	      esac;
+							      >	   fi;
+							      >	   if [ -n "${IFS+x}" ]; then
+							      >	      _mlIFS=$IFS;
+							      >	   fi;
+							      >	   IFS='\'' '\'';
+							      >	   for _mlv in ${MODULES_RUN_QUARANTINE:-}; do
+							      >	      if [ "${_mlv}" = "${_mlv##*[!A-Za-z0-9_]}" -a "${_mlv}"
+							      >	         if [ -n "`eval '\''echo ${'\''$_mlv'\''+x}'\''`" ]; 
+							      >	            _mlre="${_mlre:-}${_mlv}_modquar='\''`eval '\''ec
+							      >	         fi;
+							      >	         _mlrv="MODULES_RUNENV_${_mlv}";
+							      >	         _mlre="${_mlre:-}${_mlv}='\''`eval '\''echo ${'\''$_
+							      >	      fi;
+							      >	   done;
+							      >	   if [ -n "${_mlre:-}" ]; then
+							      >	      eval `eval ${_mlre}/usr/bin/tclsh /usr/local/modules-tc
+							      >	   else
+							      >	      eval `/usr/bin/tclsh /usr/local/modules-tcl/libexec/mod
+							      >	   fi;
+							      >	   _mlstatus=$?;
+							      >	   if [ -n "${_mlIFS+x}" ]; then
+							      >	      IFS=$_mlIFS;
+							      >	   else
+							      >	      unset IFS;
+							      >	   fi;
+							      >	   if [ -n "${_mlshdbg:-}" ]; then
+							      >	      set -$_mlshdbg;
+							      >	   fi;
+							      >	   unset _mlre _mlv _mlrv _mlIFS _mlshdbg;
+							      >	   return $_mlstatus;
+							      >	};
+							      >	MODULES_CMD=/usr/local/modules-tcl/libexec/modulecmd.tcl; exp
+							      >	MODULESHOME=/usr/local/modules-tcl; export MODULESHOME;
+							      >	test 0;'
+							      >	>> MODULES_CMD=/usr/local/modules-tcl/libexec/modulecmd.tcl
+							      >	>> export MODULES_CMD
+							      >	>> MODULESHOME=/usr/local/modules-tcl
+							      >	>> export MODULESHOME
+							      >	>> test 0
+							      >	> '[' -n x ']'
+							      >	> IFS=' 	
+							      >	'
+							      >	> unset _mlIFS
+							      >	> unset _mlre _mlv _mlrv
+							      >	> '[' 0 = 1 ']'
+							      >	> '[' -t 2 ']'
+							      >	> export -f module
+							      >	> export -f switchml
+							      >	> ENV=/usr/local/modules-tcl/init/profile.sh
+							      >	> export ENV
+							      >	> BASH_ENV=/usr/local/modules-tcl/init/bash
+							      >	> export BASH_ENV
+							      >	> '[' 4 -ge 3 ']'
+							      >	> [[ hxBc =~ i ]]
+							      >	> [[ ! :/usr/local/modules-tcl/bin:/usr/local/sbin:/usr/local
+							      >	>> manpath
+							      >	> manpath=/usr/local/modules-tcl/share/man:/usr/man:/usr/shar
+							      >	> [[ ! :/usr/local/modules-tcl/share/man:/usr/man:/usr/share/
+							      >	> '[' -n '' ']'
+> test-input/globals						> test-input/globals
+string1: Hello							string1: Hello
+string2: Goodbye cruel world					string2: Goodbye cruel world
+string3: All your bass						string3: All your bass
+int1: aabbccdd							int1: aabbccdd
+int2: ffeeddcc							int2: ffeeddcc
+a_doub: 1.234567						a_doub: 1.234567
+> ./patchsym test-input/globals string1 string			> ./patchsym test-input/globals string1 string
+GET mode							GET mode
+.data section							.data section
+- 23 section index						- 23 section index
+- 12320 bytes offset from start of file				- 12320 bytes offset from start of file
+- 0x4020 preferred virtual address for .data			- 0x4020 preferred virtual address for .data
+.symtab section							.symtab section
+- 26 section index						- 26 section index
+- 12504 bytes offset from start of file				- 12504 bytes offset from start of file
+- 1680 bytes total size						- 1680 bytes total size
+- 24 bytes per entry						- 24 bytes per entry
+- 70 entries							- 70 entries
+Found Symbol 'string1'						Found Symbol 'string1'
+- 53 symbol index						- 53 symbol index
+- 0x4040 value							- 0x4040 value
+- 8 size							- 8 size
+- 23 section index						- 23 section index
+- 32 offset in .data of value for symbol			- 32 offset in .data of value for symbol
+string value: 'Hello'						string value: 'Hello'
+-------------------------------------
+TEST  2 get globals string2                 : FAIL: Output Incorrect
+-------------------------------------
+OUTPUT: EXPECT   vs   ACTUAL
+							      >	> unset _mlre _mlIFS _mlshdbg
+							      >	> '[' 0 = 1 ']'
+							      >	> '[' -n x ']'
+							      >	> _mlIFS=' 	
+							      >	'
+							      >	> IFS=' '
+							      >	> '[' -n '' ']'
+							      >	>> /usr/bin/tclsh /usr/local/modules-tcl/libexec/modulecmd.tc
+							      >	> eval 'module() {
+							      >	   unset _mlre _mlIFS _mlshdbg;
+							      >	   if [ "${MODULES_SILENT_SHELL_DEBUG:-0}" = '\''1'\'' ]; the
+							      >	      case "$-" in
+							      >	         *v*x*) set +vx; _mlshdbg='\''vx'\'' ;;
+							      >	         *v*) set +v; _mlshdbg='\''v'\'' ;;
+							      >	         *x*) set +x; _mlshdbg='\''x'\'' ;;
+							      >	         *) _mlshdbg='\'''\'' ;;
+							      >	      esac;
+							      >	   fi;
+							      >	   if [ -n "${IFS+x}" ]; then
+							      >	      _mlIFS=$IFS;
+							      >	   fi;
+							      >	   IFS='\'' '\'';
+							      >	   for _mlv in ${MODULES_RUN_QUARANTINE:-}; do
+							      >	      if [ "${_mlv}" = "${_mlv##*[!A-Za-z0-9_]}" -a "${_mlv}"
+							      >	         if [ -n "`eval '\''echo ${'\''$_mlv'\''+x}'\''`" ]; 
+							      >	            _mlre="${_mlre:-}${_mlv}_modquar='\''`eval '\''ec
+							      >	         fi;
+							      >	         _mlrv="MODULES_RUNENV_${_mlv}";
+							      >	         _mlre="${_mlre:-}${_mlv}='\''`eval '\''echo ${'\''$_
+							      >	      fi;
+							      >	   done;
+							      >	   if [ -n "${_mlre:-}" ]; then
+							      >	      eval `eval ${_mlre}/usr/bin/tclsh /usr/local/modules-tc
+							      >	   else
+							      >	      eval `/usr/bin/tclsh /usr/local/modules-tcl/libexec/mod
+							      >	   fi;
+							      >	   _mlstatus=$?;
+							      >	   if [ -n "${_mlIFS+x}" ]; then
+							      >	      IFS=$_mlIFS;
+							      >	   else
+							      >	      unset IFS;
+							      >	   fi;
+							      >	   if [ -n "${_mlshdbg:-}" ]; then
+							      >	      set -$_mlshdbg;
+							      >	   fi;
+							      >	   unset _mlre _mlv _mlrv _mlIFS _mlshdbg;
+							      >	   return $_mlstatus;
+							      >	};
+							      >	MODULES_CMD=/usr/local/modules-tcl/libexec/modulecmd.tcl; exp
+							      >	MODULESHOME=/usr/local/modules-tcl; export MODULESHOME;
+							      >	test 0;'
+							      >	>> MODULES_CMD=/usr/local/modules-tcl/libexec/modulecmd.tcl
+							      >	>> export MODULES_CMD
+							      >	>> MODULESHOME=/usr/local/modules-tcl
+							      >	>> export MODULESHOME
+							      >	>> test 0
+							      >	> '[' -n x ']'
+							      >	> IFS=' 	
+							      >	'
+							      >	> unset _mlIFS
+							      >	> unset _mlre _mlv _mlrv
+							      >	> '[' 0 = 1 ']'
+							      >	> '[' -t 2 ']'
+							      >	> export -f module
+							      >	> export -f switchml
+							      >	> ENV=/usr/local/modules-tcl/init/profile.sh
+							      >	> export ENV
+							      >	> BASH_ENV=/usr/local/modules-tcl/init/bash
+							      >	> export BASH_ENV
+							      >	> '[' 4 -ge 3 ']'
+							      >	> [[ hxBc =~ i ]]
+							      >	> [[ ! :/usr/local/modules-tcl/bin:/usr/local/sbin:/usr/local
+							      >	>> manpath
+							      >	> manpath=/usr/local/modules-tcl/share/man:/usr/man:/usr/shar
+							      >	> [[ ! :/usr/local/modules-tcl/share/man:/usr/man:/usr/share/
+							      >	> '[' -n '' ']'
+> test-input/globals						> test-input/globals
+string1: Hello							string1: Hello
+string2: Goodbye cruel world					string2: Goodbye cruel world
+string3: All your bass						string3: All your bass
+int1: aabbccdd							int1: aabbccdd
+int2: ffeeddcc							int2: ffeeddcc
+a_doub: 1.234567						a_doub: 1.234567
+> ./patchsym test-input/globals string2 string			> ./patchsym test-input/globals string2 string
+GET mode							GET mode
+.data section							.data section
+- 23 section index						- 23 section index
+- 12320 bytes offset from start of file				- 12320 bytes offset from start of file
+- 0x4020 preferred virtual address for .data			- 0x4020 preferred virtual address for .data
+.symtab section							.symtab section
+- 26 section index						- 26 section index
+- 12504 bytes offset from start of file				- 12504 bytes offset from start of file
+- 1680 bytes total size						- 1680 bytes total size
+- 24 bytes per entry						- 24 bytes per entry
+- 70 entries							- 70 entries
+Found Symbol 'string2'						Found Symbol 'string2'
+- 66 symbol index						- 66 symbol index
+- 0x4060 value							- 0x4060 value
+- 64 size							- 64 size
+- 23 section index						- 23 section index
+- 64 offset in .data of value for symbol			- 64 offset in .data of value for symbol
+string value: 'Goodbye cruel world'				string value: 'Goodbye cruel world'
+-------------------------------------
+TEST  3 get globals nonexist not found      : FAIL: Output Incorrect
+-------------------------------------
+OUTPUT: EXPECT   vs   ACTUAL
+							      >	> unset _mlre _mlIFS _mlshdbg
+							      >	> '[' 0 = 1 ']'
+							      >	> '[' -n x ']'
+							      >	> _mlIFS=' 	
+							      >	'
+							      >	> IFS=' '
+							      >	> '[' -n '' ']'
+							      >	>> /usr/bin/tclsh /usr/local/modules-tcl/libexec/modulecmd.tc
+							      >	> eval 'module() {
+							      >	   unset _mlre _mlIFS _mlshdbg;
+							      >	   if [ "${MODULES_SILENT_SHELL_DEBUG:-0}" = '\''1'\'' ]; the
+							      >	      case "$-" in
+							      >	         *v*x*) set +vx; _mlshdbg='\''vx'\'' ;;
+							      >	         *v*) set +v; _mlshdbg='\''v'\'' ;;
+							      >	         *x*) set +x; _mlshdbg='\''x'\'' ;;
+							      >	         *) _mlshdbg='\'''\'' ;;
+							      >	      esac;
+							      >	   fi;
+							      >	   if [ -n "${IFS+x}" ]; then
+							      >	      _mlIFS=$IFS;
+							      >	   fi;
+							      >	   IFS='\'' '\'';
+							      >	   for _mlv in ${MODULES_RUN_QUARANTINE:-}; do
+							      >	      if [ "${_mlv}" = "${_mlv##*[!A-Za-z0-9_]}" -a "${_mlv}"
+							      >	         if [ -n "`eval '\''echo ${'\''$_mlv'\''+x}'\''`" ]; 
+							      >	            _mlre="${_mlre:-}${_mlv}_modquar='\''`eval '\''ec
+							      >	         fi;
+							      >	         _mlrv="MODULES_RUNENV_${_mlv}";
+							      >	         _mlre="${_mlre:-}${_mlv}='\''`eval '\''echo ${'\''$_
+							      >	      fi;
+							      >	   done;
+							      >	   if [ -n "${_mlre:-}" ]; then
+							      >	      eval `eval ${_mlre}/usr/bin/tclsh /usr/local/modules-tc
+							      >	   else
+							      >	      eval `/usr/bin/tclsh /usr/local/modules-tcl/libexec/mod
+							      >	   fi;
+							      >	   _mlstatus=$?;
+							      >	   if [ -n "${_mlIFS+x}" ]; then
+							      >	      IFS=$_mlIFS;
+							      >	   else
+							      >	      unset IFS;
+							      >	   fi;
+							      >	   if [ -n "${_mlshdbg:-}" ]; then
+							      >	      set -$_mlshdbg;
+							      >	   fi;
+							      >	   unset _mlre _mlv _mlrv _mlIFS _mlshdbg;
+							      >	   return $_mlstatus;
+							      >	};
+							      >	MODULES_CMD=/usr/local/modules-tcl/libexec/modulecmd.tcl; exp
+							      >	MODULESHOME=/usr/local/modules-tcl; export MODULESHOME;
+							      >	test 0;'
+							      >	>> MODULES_CMD=/usr/local/modules-tcl/libexec/modulecmd.tcl
+							      >	>> export MODULES_CMD
+							      >	>> MODULESHOME=/usr/local/modules-tcl
+							      >	>> export MODULESHOME
+							      >	>> test 0
+							      >	> '[' -n x ']'
+							      >	> IFS=' 	
+							      >	'
+							      >	> unset _mlIFS
+							      >	> unset _mlre _mlv _mlrv
+							      >	> '[' 0 = 1 ']'
+							      >	> '[' -t 2 ']'
+							      >	> export -f module
+							      >	> export -f switchml
+							      >	> ENV=/usr/local/modules-tcl/init/profile.sh
+							      >	> export ENV
+							      >	> BASH_ENV=/usr/local/modules-tcl/init/bash
+							      >	> export BASH_ENV
+							      >	> '[' 4 -ge 3 ']'
+							      >	> [[ hxBc =~ i ]]
+							      >	> [[ ! :/usr/local/modules-tcl/bin:/usr/local/sbin:/usr/local
+							      >	>> manpath
+							      >	> manpath=/usr/local/modules-tcl/share/man:/usr/man:/usr/shar
+							      >	> [[ ! :/usr/local/modules-tcl/share/man:/usr/man:/usr/share/
+							      >	> '[' -n '' ']'
+> ./patchsym test-input/globals nonexist string			> ./patchsym test-input/globals nonexist string
+GET mode							GET mode
+.data section							.data section
+- 23 section index						- 23 section index
+- 12320 bytes offset from start of file				- 12320 bytes offset from start of file
+- 0x4020 preferred virtual address for .data			- 0x4020 preferred virtual address for .data
+.symtab section							.symtab section
+- 26 section index						- 26 section index
+- 12504 bytes offset from start of file				- 12504 bytes offset from start of file
+- 1680 bytes total size						- 1680 bytes total size
+- 24 bytes per entry						- 24 bytes per entry
+- 70 entries							- 70 entries
+ERROR: Symbol 'nonexist' not found				ERROR: Symbol 'nonexist' not found
+-------------------------------------
+TEST  4 set globals2 string1                : FAIL: Output Incorrect
+-------------------------------------
+OUTPUT: EXPECT   vs   ACTUAL
+							      >	> unset _mlre _mlIFS _mlshdbg
+							      >	> '[' 0 = 1 ']'
+							      >	> '[' -n x ']'
+							      >	> _mlIFS=' 	
+							      >	'
+							      >	> IFS=' '
+							      >	> '[' -n '' ']'
+							      >	>> /usr/bin/tclsh /usr/local/modules-tcl/libexec/modulecmd.tc
+							      >	> eval 'module() {
+							      >	   unset _mlre _mlIFS _mlshdbg;
+							      >	   if [ "${MODULES_SILENT_SHELL_DEBUG:-0}" = '\''1'\'' ]; the
+							      >	      case "$-" in
+							      >	         *v*x*) set +vx; _mlshdbg='\''vx'\'' ;;
+							      >	         *v*) set +v; _mlshdbg='\''v'\'' ;;
+							      >	         *x*) set +x; _mlshdbg='\''x'\'' ;;
+							      >	         *) _mlshdbg='\'''\'' ;;
+							      >	      esac;
+							      >	   fi;
+							      >	   if [ -n "${IFS+x}" ]; then
+							      >	      _mlIFS=$IFS;
+							      >	   fi;
+							      >	   IFS='\'' '\'';
+							      >	   for _mlv in ${MODULES_RUN_QUARANTINE:-}; do
+							      >	      if [ "${_mlv}" = "${_mlv##*[!A-Za-z0-9_]}" -a "${_mlv}"
+							      >	         if [ -n "`eval '\''echo ${'\''$_mlv'\''+x}'\''`" ]; 
+							      >	            _mlre="${_mlre:-}${_mlv}_modquar='\''`eval '\''ec
+							      >	         fi;
+							      >	         _mlrv="MODULES_RUNENV_${_mlv}";
+							      >	         _mlre="${_mlre:-}${_mlv}='\''`eval '\''echo ${'\''$_
+							      >	      fi;
+							      >	   done;
+							      >	   if [ -n "${_mlre:-}" ]; then
+							      >	      eval `eval ${_mlre}/usr/bin/tclsh /usr/local/modules-tc
+							      >	   else
+							      >	      eval `/usr/bin/tclsh /usr/local/modules-tcl/libexec/mod
+							      >	   fi;
+							      >	   _mlstatus=$?;
+							      >	   if [ -n "${_mlIFS+x}" ]; then
+							      >	      IFS=$_mlIFS;
+							      >	   else
+							      >	      unset IFS;
+							      >	   fi;
+							      >	   if [ -n "${_mlshdbg:-}" ]; then
+							      >	      set -$_mlshdbg;
+							      >	   fi;
+							      >	   unset _mlre _mlv _mlrv _mlIFS _mlshdbg;
+							      >	   return $_mlstatus;
+							      >	};
+							      >	MODULES_CMD=/usr/local/modules-tcl/libexec/modulecmd.tcl; exp
+							      >	MODULESHOME=/usr/local/modules-tcl; export MODULESHOME;
+							      >	test 0;'
+							      >	>> MODULES_CMD=/usr/local/modules-tcl/libexec/modulecmd.tcl
+							      >	>> export MODULES_CMD
+							      >	>> MODULESHOME=/usr/local/modules-tcl
+							      >	>> export MODULESHOME
+							      >	>> test 0
+							      >	> '[' -n x ']'
+							      >	> IFS=' 	
+							      >	'
+							      >	> unset _mlIFS
+							      >	> unset _mlre _mlv _mlrv
+							      >	> '[' 0 = 1 ']'
+							      >	> '[' -t 2 ']'
+							      >	> export -f module
+							      >	> export -f switchml
+							      >	> ENV=/usr/local/modules-tcl/init/profile.sh
+							      >	> export ENV
+							      >	> BASH_ENV=/usr/local/modules-tcl/init/bash
+							      >	> export BASH_ENV
+							      >	> '[' 4 -ge 3 ']'
+							      >	> [[ hxBc =~ i ]]
+							      >	> [[ ! :/usr/local/modules-tcl/bin:/usr/local/sbin:/usr/local
+							      >	>> manpath
+							      >	> manpath=/usr/local/modules-tcl/share/man:/usr/man:/usr/shar
+							      >	> [[ ! :/usr/local/modules-tcl/share/man:/usr/man:/usr/share/
+							      >	> '[' -n '' ']'
+> cp test-input/globals test-data/globals2			> cp test-input/globals test-data/globals2
+> test-data/globals2						> test-data/globals2
+string1: Hello							string1: Hello
+string2: Goodbye cruel world					string2: Goodbye cruel world
+string3: All your bass						string3: All your bass
+int1: aabbccdd							int1: aabbccdd
+int2: ffeeddcc							int2: ffeeddcc
+a_doub: 1.234567						a_doub: 1.234567
+> ./patchsym test-data/globals2 string1 string 'ADIOS!'		> ./patchsym test-data/globals2 string1 string 'ADIOS!'
+SET mode							SET mode
+.data section							.data section
+- 23 section index						- 23 section index
+- 12320 bytes offset from start of file				- 12320 bytes offset from start of file
+- 0x4020 preferred virtual address for .data			- 0x4020 preferred virtual address for .data
+.symtab section							.symtab section
+- 26 section index						- 26 section index
+- 12504 bytes offset from start of file				- 12504 bytes offset from start of file
+- 1680 bytes total size						- 1680 bytes total size
+- 24 bytes per entry						- 24 bytes per entry
+- 70 entries							- 70 entries
+Found Symbol 'string1'						Found Symbol 'string1'
+- 53 symbol index						- 53 symbol index
+- 0x4040 value							- 0x4040 value
+- 8 size							- 8 size
+- 23 section index						- 23 section index
+- 32 offset in .data of value for symbol			- 32 offset in .data of value for symbol
+string value: 'Hello'						string value: 'Hello'
+New val is: 'ADIOS!'						New val is: 'ADIOS!'
+> test-data/globals2						> test-data/globals2
+string1: ADIOS!							string1: ADIOS!
+string2: Goodbye cruel world					string2: Goodbye cruel world
+string3: All your bass						string3: All your bass
+int1: aabbccdd							int1: aabbccdd
+int2: ffeeddcc							int2: ffeeddcc
+a_doub: 1.234567						a_doub: 1.234567
+-------------------------------------
+TEST  5 set globals2 string1-3              : FAIL: Output Incorrect
+-------------------------------------
+OUTPUT: EXPECT   vs   ACTUAL
+							      >	> unset _mlre _mlIFS _mlshdbg
+							      >	> '[' 0 = 1 ']'
+							      >	> '[' -n x ']'
+							      >	> _mlIFS=' 	
+							      >	'
+							      >	> IFS=' '
+							      >	> '[' -n '' ']'
+							      >	>> /usr/bin/tclsh /usr/local/modules-tcl/libexec/modulecmd.tc
+							      >	> eval 'module() {
+							      >	   unset _mlre _mlIFS _mlshdbg;
+							      >	   if [ "${MODULES_SILENT_SHELL_DEBUG:-0}" = '\''1'\'' ]; the
+							      >	      case "$-" in
+							      >	         *v*x*) set +vx; _mlshdbg='\''vx'\'' ;;
+							      >	         *v*) set +v; _mlshdbg='\''v'\'' ;;
+							      >	         *x*) set +x; _mlshdbg='\''x'\'' ;;
+							      >	         *) _mlshdbg='\'''\'' ;;
+							      >	      esac;
+							      >	   fi;
+							      >	   if [ -n "${IFS+x}" ]; then
+							      >	      _mlIFS=$IFS;
+							      >	   fi;
+							      >	   IFS='\'' '\'';
+							      >	   for _mlv in ${MODULES_RUN_QUARANTINE:-}; do
+							      >	      if [ "${_mlv}" = "${_mlv##*[!A-Za-z0-9_]}" -a "${_mlv}"
+							      >	         if [ -n "`eval '\''echo ${'\''$_mlv'\''+x}'\''`" ]; 
+							      >	            _mlre="${_mlre:-}${_mlv}_modquar='\''`eval '\''ec
+							      >	         fi;
+							      >	         _mlrv="MODULES_RUNENV_${_mlv}";
+							      >	         _mlre="${_mlre:-}${_mlv}='\''`eval '\''echo ${'\''$_
+							      >	      fi;
+							      >	   done;
+							      >	   if [ -n "${_mlre:-}" ]; then
+							      >	      eval `eval ${_mlre}/usr/bin/tclsh /usr/local/modules-tc
+							      >	   else
+							      >	      eval `/usr/bin/tclsh /usr/local/modules-tcl/libexec/mod
+							      >	   fi;
+							      >	   _mlstatus=$?;
+							      >	   if [ -n "${_mlIFS+x}" ]; then
+							      >	      IFS=$_mlIFS;
+							      >	   else
+							      >	      unset IFS;
+							      >	   fi;
+							      >	   if [ -n "${_mlshdbg:-}" ]; then
+							      >	      set -$_mlshdbg;
+							      >	   fi;
+							      >	   unset _mlre _mlv _mlrv _mlIFS _mlshdbg;
+							      >	   return $_mlstatus;
+							      >	};
+							      >	MODULES_CMD=/usr/local/modules-tcl/libexec/modulecmd.tcl; exp
+							      >	MODULESHOME=/usr/local/modules-tcl; export MODULESHOME;
+							      >	test 0;'
+							      >	>> MODULES_CMD=/usr/local/modules-tcl/libexec/modulecmd.tcl
+							      >	>> export MODULES_CMD
+							      >	>> MODULESHOME=/usr/local/modules-tcl
+							      >	>> export MODULESHOME
+							      >	>> test 0
+							      >	> '[' -n x ']'
+							      >	> IFS=' 	
+							      >	'
+							      >	> unset _mlIFS
+							      >	> unset _mlre _mlv _mlrv
+							      >	> '[' 0 = 1 ']'
+							      >	> '[' -t 2 ']'
+							      >	> export -f module
+							      >	> export -f switchml
+							      >	> ENV=/usr/local/modules-tcl/init/profile.sh
+							      >	> export ENV
+							      >	> BASH_ENV=/usr/local/modules-tcl/init/bash
+							      >	> export BASH_ENV
+							      >	> '[' 4 -ge 3 ']'
+							      >	> [[ hxBc =~ i ]]
+							      >	> [[ ! :/usr/local/modules-tcl/bin:/usr/local/sbin:/usr/local
+							      >	>> manpath
+							      >	> manpath=/usr/local/modules-tcl/share/man:/usr/man:/usr/shar
+							      >	> [[ ! :/usr/local/modules-tcl/share/man:/usr/man:/usr/share/
+							      >	> '[' -n '' ']'
+> cp test-input/globals test-data/globals2			> cp test-input/globals test-data/globals2
+> test-data/globals2						> test-data/globals2
+string1: Hello							string1: Hello
+string2: Goodbye cruel world					string2: Goodbye cruel world
+string3: All your bass						string3: All your bass
+int1: aabbccdd							int1: aabbccdd
+int2: ffeeddcc							int2: ffeeddcc
+a_doub: 1.234567						a_doub: 1.234567
+> ./patchsym test-data/globals2 string1 string 'Adios!'		> ./patchsym test-data/globals2 string1 string 'Adios!'
+SET mode							SET mode
+.data section							.data section
+- 23 section index						- 23 section index
+- 12320 bytes offset from start of file				- 12320 bytes offset from start of file
+- 0x4020 preferred virtual address for .data			- 0x4020 preferred virtual address for .data
+.symtab section							.symtab section
+- 26 section index						- 26 section index
+- 12504 bytes offset from start of file				- 12504 bytes offset from start of file
+- 1680 bytes total size						- 1680 bytes total size
+- 24 bytes per entry						- 24 bytes per entry
+- 70 entries							- 70 entries
+Found Symbol 'string1'						Found Symbol 'string1'
+- 53 symbol index						- 53 symbol index
+- 0x4040 value							- 0x4040 value
+- 8 size							- 8 size
+- 23 section index						- 23 section index
+- 32 offset in .data of value for symbol			- 32 offset in .data of value for symbol
+string value: 'Hello'						string value: 'Hello'
+New val is: 'Adios!'						New val is: 'Adios!'
+> ./patchsym test-data/globals2 string2 string 'Say hello to 	> ./patchsym test-data/globals2 string2 string 'Say hello to 
+SET mode							SET mode
+.data section							.data section
+- 23 section index						- 23 section index
+- 12320 bytes offset from start of file				- 12320 bytes offset from start of file
+- 0x4020 preferred virtual address for .data			- 0x4020 preferred virtual address for .data
+.symtab section							.symtab section
+- 26 section index						- 26 section index
+- 12504 bytes offset from start of file				- 12504 bytes offset from start of file
+- 1680 bytes total size						- 1680 bytes total size
+- 24 bytes per entry						- 24 bytes per entry
+- 70 entries							- 70 entries
+Found Symbol 'string2'						Found Symbol 'string2'
+- 66 symbol index						- 66 symbol index
+- 0x4060 value							- 0x4060 value
+- 64 size							- 64 size
+- 23 section index						- 23 section index
+- 64 offset in .data of value for symbol			- 64 offset in .data of value for symbol
+string value: 'Goodbye cruel world'				string value: 'Goodbye cruel world'
+New val is: 'Say hello to a new day.'				New val is: 'Say hello to a new day.'
+> ./patchsym test-data/globals2 string3 string 'Move ZIG!'	> ./patchsym test-data/globals2 string3 string 'Move ZIG!'
+SET mode							SET mode
+.data section							.data section
+- 23 section index						- 23 section index
+- 12320 bytes offset from start of file				- 12320 bytes offset from start of file
+- 0x4020 preferred virtual address for .data			- 0x4020 preferred virtual address for .data
+.symtab section							.symtab section
+- 26 section index						- 26 section index
+- 12504 bytes offset from start of file				- 12504 bytes offset from start of file
+- 1680 bytes total size						- 1680 bytes total size
+- 24 bytes per entry						- 24 bytes per entry
+- 70 entries							- 70 entries
+Found Symbol 'string3'						Found Symbol 'string3'
+- 52 symbol index						- 52 symbol index
+- 0x40a0 value							- 0x40a0 value
+- 16 size							- 16 size
+- 23 section index						- 23 section index
+- 128 offset in .data of value for symbol			- 128 offset in .data of value for symbol
+string value: 'All your bass'					string value: 'All your bass'
+New val is: 'Move ZIG!'						New val is: 'Move ZIG!'
+> test-data/globals2						> test-data/globals2
+string1: Adios!							string1: Adios!
+string2: Say hello to a new day.				string2: Say hello to a new day.
+string3: Move ZIG!						string3: Move ZIG!
+int1: aabbccdd							int1: aabbccdd
+int2: ffeeddcc							int2: ffeeddcc
+a_doub: 1.234567						a_doub: 1.234567
+-------------------------------------
+TEST  6 set list_main2 PROMPT               : FAIL: Output Incorrect
+-------------------------------------
+OUTPUT: EXPECT   vs   ACTUAL
+							      >	> unset _mlre _mlIFS _mlshdbg
+							      >	> '[' 0 = 1 ']'
+							      >	> '[' -n x ']'
+							      >	> _mlIFS=' 	
+							      >	'
+							      >	> IFS=' '
+							      >	> '[' -n '' ']'
+							      >	>> /usr/bin/tclsh /usr/local/modules-tcl/libexec/modulecmd.tc
+							      >	> eval 'module() {
+							      >	   unset _mlre _mlIFS _mlshdbg;
+							      >	   if [ "${MODULES_SILENT_SHELL_DEBUG:-0}" = '\''1'\'' ]; the
+							      >	      case "$-" in
+							      >	         *v*x*) set +vx; _mlshdbg='\''vx'\'' ;;
+							      >	         *v*) set +v; _mlshdbg='\''v'\'' ;;
+							      >	         *x*) set +x; _mlshdbg='\''x'\'' ;;
+							      >	         *) _mlshdbg='\'''\'' ;;
+							      >	      esac;
+							      >	   fi;
+							      >	   if [ -n "${IFS+x}" ]; then
+							      >	      _mlIFS=$IFS;
+							      >	   fi;
+							      >	   IFS='\'' '\'';
+							      >	   for _mlv in ${MODULES_RUN_QUARANTINE:-}; do
+							      >	      if [ "${_mlv}" = "${_mlv##*[!A-Za-z0-9_]}" -a "${_mlv}"
+							      >	         if [ -n "`eval '\''echo ${'\''$_mlv'\''+x}'\''`" ]; 
+							      >	            _mlre="${_mlre:-}${_mlv}_modquar='\''`eval '\''ec
+							      >	         fi;
+							      >	         _mlrv="MODULES_RUNENV_${_mlv}";
+							      >	         _mlre="${_mlre:-}${_mlv}='\''`eval '\''echo ${'\''$_
+							      >	      fi;
+							      >	   done;
+							      >	   if [ -n "${_mlre:-}" ]; then
+							      >	      eval `eval ${_mlre}/usr/bin/tclsh /usr/local/modules-tc
+							      >	   else
+							      >	      eval `/usr/bin/tclsh /usr/local/modules-tcl/libexec/mod
+							      >	   fi;
+							      >	   _mlstatus=$?;
+							      >	   if [ -n "${_mlIFS+x}" ]; then
+							      >	      IFS=$_mlIFS;
+							      >	   else
+							      >	      unset IFS;
+							      >	   fi;
+							      >	   if [ -n "${_mlshdbg:-}" ]; then
+							      >	      set -$_mlshdbg;
+							      >	   fi;
+							      >	   unset _mlre _mlv _mlrv _mlIFS _mlshdbg;
+							      >	   return $_mlstatus;
+							      >	};
+							      >	MODULES_CMD=/usr/local/modules-tcl/libexec/modulecmd.tcl; exp
+							      >	MODULESHOME=/usr/local/modules-tcl; export MODULESHOME;
+							      >	test 0;'
+							      >	>> MODULES_CMD=/usr/local/modules-tcl/libexec/modulecmd.tcl
+							      >	>> export MODULES_CMD
+							      >	>> MODULESHOME=/usr/local/modules-tcl
+							      >	>> export MODULESHOME
+							      >	>> test 0
+							      >	> '[' -n x ']'
+							      >	> IFS=' 	
+							      >	'
+							      >	> unset _mlIFS
+							      >	> unset _mlre _mlv _mlrv
+							      >	> '[' 0 = 1 ']'
+							      >	> '[' -t 2 ']'
+							      >	> export -f module
+							      >	> export -f switchml
+							      >	> ENV=/usr/local/modules-tcl/init/profile.sh
+							      >	> export ENV
+							      >	> BASH_ENV=/usr/local/modules-tcl/init/bash
+							      >	> export BASH_ENV
+							      >	> '[' 4 -ge 3 ']'
+							      >	> [[ hxBc =~ i ]]
+							      >	> [[ ! :/usr/local/modules-tcl/bin:/usr/local/sbin:/usr/local
+							      >	>> manpath
+							      >	> manpath=/usr/local/modules-tcl/share/man:/usr/man:/usr/shar
+							      >	> [[ ! :/usr/local/modules-tcl/share/man:/usr/man:/usr/share/
+							      >	> '[' -n '' ']'
+> cp test-input/list_main test-data/list_main2			> cp test-input/list_main test-data/list_main2
+> echo exit							> echo exit
+> test-data/list_main2 -echo					> test-data/list_main2 -echo
+Linked List Demo						Linked List Demo
+Commands:							Commands:
+  print:          shows the current contents of the list	  print:          shows the current contents of the list
+  clear:          eliminates all elements from the list		  clear:          eliminates all elements from the list
+  exit:           exit the program				  exit:           exit the program
+  insert thing:   inserts the given string into the list	  insert thing:   inserts the given string into the list
+  get index:      get the item at the given index		  get index:      get the item at the given index
+  contains thing: determine if the given thing is in the list	  contains thing: determine if the given thing is in the list
+                  (NOT YET IMPLEMENTED)				                  (NOT YET IMPLEMENTED)
+list> exit							list> exit
+> ./patchsym test-data/list_main2 PROMPT string '[LIST]# '	> ./patchsym test-data/list_main2 PROMPT string '[LIST]# '
+SET mode							SET mode
+.data section							.data section
+- 23 section index						- 23 section index
+- 12384 bytes offset from start of file				- 12384 bytes offset from start of file
+- 0x4060 preferred virtual address for .data			- 0x4060 preferred virtual address for .data
+.symtab section							.symtab section
+- 26 section index						- 26 section index
+- 12472 bytes offset from start of file				- 12472 bytes offset from start of file
+- 1992 bytes total size						- 1992 bytes total size
+- 24 bytes per entry						- 24 bytes per entry
+- 83 entries							- 83 entries
+Found Symbol 'PROMPT'						Found Symbol 'PROMPT'
+- 76 symbol index						- 76 symbol index
+- 0x4080 value							- 0x4080 value
+- 32 size							- 32 size
+- 23 section index						- 23 section index
+- 32 offset in .data of value for symbol			- 32 offset in .data of value for symbol
+string value: 'list> '						string value: 'list> '
+New val is: '[LIST]# '						New val is: '[LIST]# '
+> ./patchsym test-data/list_main2 PROMPT string			> ./patchsym test-data/list_main2 PROMPT string
+GET mode							GET mode
+.data section							.data section
+- 23 section index						- 23 section index
+- 12384 bytes offset from start of file				- 12384 bytes offset from start of file
+- 0x4060 preferred virtual address for .data			- 0x4060 preferred virtual address for .data
+.symtab section							.symtab section
+- 26 section index						- 26 section index
+- 12472 bytes offset from start of file				- 12472 bytes offset from start of file
+- 1992 bytes total size						- 1992 bytes total size
+- 24 bytes per entry						- 24 bytes per entry
+- 83 entries							- 83 entries
+Found Symbol 'PROMPT'						Found Symbol 'PROMPT'
+- 76 symbol index						- 76 symbol index
+- 0x4080 value							- 0x4080 value
+- 32 size							- 32 size
+- 23 section index						- 23 section index
+- 32 offset in .data of value for symbol			- 32 offset in .data of value for symbol
+string value: '[LIST]# '					string value: '[LIST]# '
+> echo exit							> echo exit
+> test-data/list_main2 -echo					> test-data/list_main2 -echo
+Linked List Demo						Linked List Demo
+Commands:							Commands:
+  print:          shows the current contents of the list	  print:          shows the current contents of the list
+  clear:          eliminates all elements from the list		  clear:          eliminates all elements from the list
+  exit:           exit the program				  exit:           exit the program
+  insert thing:   inserts the given string into the list	  insert thing:   inserts the given string into the list
+  get index:      get the item at the given index		  get index:      get the item at the given index
+  contains thing: determine if the given thing is in the list	  contains thing: determine if the given thing is in the list
+                  (NOT YET IMPLEMENTED)				                  (NOT YET IMPLEMENTED)
+[LIST]# exit							[LIST]# exit
+-------------------------------------
+TEST  7 set quote_main2 correct             : FAIL: Output Incorrect
+-------------------------------------
+OUTPUT: EXPECT   vs   ACTUAL
+							      >	> unset _mlre _mlIFS _mlshdbg
+							      >	> '[' 0 = 1 ']'
+							      >	> '[' -n x ']'
+							      >	> _mlIFS=' 	
+							      >	'
+							      >	> IFS=' '
+							      >	> '[' -n '' ']'
+							      >	>> /usr/bin/tclsh /usr/local/modules-tcl/libexec/modulecmd.tc
+							      >	> eval 'module() {
+							      >	   unset _mlre _mlIFS _mlshdbg;
+							      >	   if [ "${MODULES_SILENT_SHELL_DEBUG:-0}" = '\''1'\'' ]; the
+							      >	      case "$-" in
+							      >	         *v*x*) set +vx; _mlshdbg='\''vx'\'' ;;
+							      >	         *v*) set +v; _mlshdbg='\''v'\'' ;;
+							      >	         *x*) set +x; _mlshdbg='\''x'\'' ;;
+							      >	         *) _mlshdbg='\'''\'' ;;
+							      >	      esac;
+							      >	   fi;
+							      >	   if [ -n "${IFS+x}" ]; then
+							      >	      _mlIFS=$IFS;
+							      >	   fi;
+							      >	   IFS='\'' '\'';
+							      >	   for _mlv in ${MODULES_RUN_QUARANTINE:-}; do
+							      >	      if [ "${_mlv}" = "${_mlv##*[!A-Za-z0-9_]}" -a "${_mlv}"
+							      >	         if [ -n "`eval '\''echo ${'\''$_mlv'\''+x}'\''`" ]; 
+							      >	            _mlre="${_mlre:-}${_mlv}_modquar='\''`eval '\''ec
+							      >	         fi;
+							      >	         _mlrv="MODULES_RUNENV_${_mlv}";
+							      >	         _mlre="${_mlre:-}${_mlv}='\''`eval '\''echo ${'\''$_
+							      >	      fi;
+							      >	   done;
+							      >	   if [ -n "${_mlre:-}" ]; then
+							      >	      eval `eval ${_mlre}/usr/bin/tclsh /usr/local/modules-tc
+							      >	   else
+							      >	      eval `/usr/bin/tclsh /usr/local/modules-tcl/libexec/mod
+							      >	   fi;
+							      >	   _mlstatus=$?;
+							      >	   if [ -n "${_mlIFS+x}" ]; then
+							      >	      IFS=$_mlIFS;
+							      >	   else
+							      >	      unset IFS;
+							      >	   fi;
+							      >	   if [ -n "${_mlshdbg:-}" ]; then
+							      >	      set -$_mlshdbg;
+							      >	   fi;
+							      >	   unset _mlre _mlv _mlrv _mlIFS _mlshdbg;
+							      >	   return $_mlstatus;
+							      >	};
+							      >	MODULES_CMD=/usr/local/modules-tcl/libexec/modulecmd.tcl; exp
+							      >	MODULESHOME=/usr/local/modules-tcl; export MODULESHOME;
+							      >	test 0;'
+							      >	>> MODULES_CMD=/usr/local/modules-tcl/libexec/modulecmd.tcl
+							      >	>> export MODULES_CMD
+							      >	>> MODULESHOME=/usr/local/modules-tcl
+							      >	>> export MODULESHOME
+							      >	>> test 0
+							      >	> '[' -n x ']'
+							      >	> IFS=' 	
+							      >	'
+							      >	> unset _mlIFS
+							      >	> unset _mlre _mlv _mlrv
+							      >	> '[' 0 = 1 ']'
+							      >	> '[' -t 2 ']'
+							      >	> export -f module
+							      >	> export -f switchml
+							      >	> ENV=/usr/local/modules-tcl/init/profile.sh
+							      >	> export ENV
+							      >	> BASH_ENV=/usr/local/modules-tcl/init/bash
+							      >	> export BASH_ENV
+							      >	> '[' 4 -ge 3 ']'
+							      >	> [[ hxBc =~ i ]]
+							      >	> [[ ! :/usr/local/modules-tcl/bin:/usr/local/sbin:/usr/local
+							      >	>> manpath
+							      >	> manpath=/usr/local/modules-tcl/share/man:/usr/man:/usr/shar
+							      >	> [[ ! :/usr/local/modules-tcl/share/man:/usr/man:/usr/share/
+							      >	> '[' -n '' ']'
+> cp test-input/quote_main test-data/quote_main2		> cp test-input/quote_main test-data/quote_main2
+> test-data/quote_main2 2					> test-data/quote_main2 2
+Complete this sentence by C++ creator Bjarne Stroustrup:	Complete this sentence by C++ creator Bjarne Stroustrup:
+C makes it easy to shoot yourself in the foot; ...		C makes it easy to shoot yourself in the foot; ...
+
+enter a number from 0 to 15 on command line			enter a number from 0 to 15 on command line
+2: Java prevents you from shooting yourself in the foot by cu	2: Java prevents you from shooting yourself in the foot by cu
+
+Have a nice tall glass of ... NOPE.				Have a nice tall glass of ... NOPE.
+> ./patchsym test-data/quote_main2 correct string 'Java preve	> ./patchsym test-data/quote_main2 correct string 'Java preve
+SET mode							SET mode
+.data section							.data section
+- 23 section index						- 23 section index
+- 12352 bytes offset from start of file				- 12352 bytes offset from start of file
+- 0x4040 preferred virtual address for .data			- 0x4040 preferred virtual address for .data
+.symtab section							.symtab section
+- 26 section index						- 26 section index
+- 16528 bytes offset from start of file				- 16528 bytes offset from start of file
+- 1824 bytes total size						- 1824 bytes total size
+- 24 bytes per entry						- 24 bytes per entry
+- 76 entries							- 76 entries
+Found Symbol 'correct'						Found Symbol 'correct'
+- 75 symbol index						- 75 symbol index
+- 0x4060 value							- 0x4060 value
+- 128 size							- 128 size
+- 23 section index						- 23 section index
+- 32 offset in .data of value for symbol			- 32 offset in .data of value for symbol
+string value: 'C++ makes it harder, but when you do, it blows	string value: 'C++ makes it harder, but when you do, it blows
+New val is: 'Java prevents you from shooting yourself in the 	New val is: 'Java prevents you from shooting yourself in the 
+> test-data/quote_main2 2					> test-data/quote_main2 2
+Complete this sentence by C++ creator Bjarne Stroustrup:	Complete this sentence by C++ creator Bjarne Stroustrup:
+C makes it easy to shoot yourself in the foot; ...		C makes it easy to shoot yourself in the foot; ...
+
+enter a number from 0 to 15 on command line			enter a number from 0 to 15 on command line
+2: Java prevents you from shooting yourself in the foot by cu	2: Java prevents you from shooting yourself in the foot by cu
+
+Correct!							Correct!
+-------------------------------------
+TEST  8 set greet_funcs.o greeting          : FAIL: Output Incorrect
+-------------------------------------
+OUTPUT: EXPECT   vs   ACTUAL
+							      >	> unset _mlre _mlIFS _mlshdbg
+							      >	> '[' 0 = 1 ']'
+							      >	> '[' -n x ']'
+							      >	> _mlIFS=' 	
+							      >	'
+							      >	> IFS=' '
+							      >	> '[' -n '' ']'
+							      >	>> /usr/bin/tclsh /usr/local/modules-tcl/libexec/modulecmd.tc
+							      >	> eval 'module() {
+							      >	   unset _mlre _mlIFS _mlshdbg;
+							      >	   if [ "${MODULES_SILENT_SHELL_DEBUG:-0}" = '\''1'\'' ]; the
+							      >	      case "$-" in
+							      >	         *v*x*) set +vx; _mlshdbg='\''vx'\'' ;;
+							      >	         *v*) set +v; _mlshdbg='\''v'\'' ;;
+							      >	         *x*) set +x; _mlshdbg='\''x'\'' ;;
+							      >	         *) _mlshdbg='\'''\'' ;;
+							      >	      esac;
+							      >	   fi;
+							      >	   if [ -n "${IFS+x}" ]; then
+							      >	      _mlIFS=$IFS;
+							      >	   fi;
+							      >	   IFS='\'' '\'';
+							      >	   for _mlv in ${MODULES_RUN_QUARANTINE:-}; do
+							      >	      if [ "${_mlv}" = "${_mlv##*[!A-Za-z0-9_]}" -a "${_mlv}"
+							      >	         if [ -n "`eval '\''echo ${'\''$_mlv'\''+x}'\''`" ]; 
+							      >	            _mlre="${_mlre:-}${_mlv}_modquar='\''`eval '\''ec
+							      >	         fi;
+							      >	         _mlrv="MODULES_RUNENV_${_mlv}";
+							      >	         _mlre="${_mlre:-}${_mlv}='\''`eval '\''echo ${'\''$_
+							      >	      fi;
+							      >	   done;
+							      >	   if [ -n "${_mlre:-}" ]; then
+							      >	      eval `eval ${_mlre}/usr/bin/tclsh /usr/local/modules-tc
+							      >	   else
+							      >	      eval `/usr/bin/tclsh /usr/local/modules-tcl/libexec/mod
+							      >	   fi;
+							      >	   _mlstatus=$?;
+							      >	   if [ -n "${_mlIFS+x}" ]; then
+							      >	      IFS=$_mlIFS;
+							      >	   else
+							      >	      unset IFS;
+							      >	   fi;
+							      >	   if [ -n "${_mlshdbg:-}" ]; then
+							      >	      set -$_mlshdbg;
+							      >	   fi;
+							      >	   unset _mlre _mlv _mlrv _mlIFS _mlshdbg;
+							      >	   return $_mlstatus;
+							      >	};
+							      >	MODULES_CMD=/usr/local/modules-tcl/libexec/modulecmd.tcl; exp
+							      >	MODULESHOME=/usr/local/modules-tcl; export MODULESHOME;
+							      >	test 0;'
+							      >	>> MODULES_CMD=/usr/local/modules-tcl/libexec/modulecmd.tcl
+							      >	>> export MODULES_CMD
+							      >	>> MODULESHOME=/usr/local/modules-tcl
+							      >	>> export MODULESHOME
+							      >	>> test 0
+							      >	> '[' -n x ']'
+							      >	> IFS=' 	
+							      >	'
+							      >	> unset _mlIFS
+							      >	> unset _mlre _mlv _mlrv
+							      >	> '[' 0 = 1 ']'
+							      >	> '[' -t 2 ']'
+							      >	> export -f module
+							      >	> export -f switchml
+							      >	> ENV=/usr/local/modules-tcl/init/profile.sh
+							      >	> export ENV
+							      >	> BASH_ENV=/usr/local/modules-tcl/init/bash
+							      >	> export BASH_ENV
+							      >	> '[' 4 -ge 3 ']'
+							      >	> [[ hxBc =~ i ]]
+							      >	> [[ ! :/usr/local/modules-tcl/bin:/usr/local/sbin:/usr/local
+							      >	>> manpath
+							      >	> manpath=/usr/local/modules-tcl/share/man:/usr/man:/usr/shar
+							      >	> [[ ! :/usr/local/modules-tcl/share/man:/usr/man:/usr/share/
+							      >	> '[' -n '' ']'
+> cp test-input/greet_funcs.o test-data/greet_funcs2.o		> cp test-input/greet_funcs.o test-data/greet_funcs2.o
+> gcc -o test-data/greet_main2 test-input/greet_main.o test-d	> gcc -o test-data/greet_main2 test-input/greet_main.o test-d
+> test-data/greet_main2						> test-data/greet_main2
+Hello fine folks!						Hello fine folks!
+Hello fine folks!						Hello fine folks!
+Hello fine folks!						Hello fine folks!
+Hello fine folks!						Hello fine folks!
+Hello fine folks!						Hello fine folks!
+> ./patchsym test-data/greet_funcs2.o greeting string 'Whazzz	> ./patchsym test-data/greet_funcs2.o greeting string 'Whazzz
+SET mode							SET mode
+.data section							.data section
+- 3 section index						- 3 section index
+- 96 bytes offset from start of file				- 96 bytes offset from start of file
+- 0x0 preferred virtual address for .data			- 0x0 preferred virtual address for .data
+.symtab section							.symtab section
+- 9 section index						- 9 section index
+- 240 bytes offset from start of file				- 240 bytes offset from start of file
+- 312 bytes total size						- 312 bytes total size
+- 24 bytes per entry						- 24 bytes per entry
+- 13 entries							- 13 entries
+Found Symbol 'greeting'						Found Symbol 'greeting'
+- 8 symbol index						- 8 symbol index
+- 0x0 value							- 0x0 value
+- 64 size							- 64 size
+- 3 section index						- 3 section index
+- 0 offset in .data of value for symbol				- 0 offset in .data of value for symbol
+string value: 'Hello fine folks!'				string value: 'Hello fine folks!'
+New val is: 'Whazzzzup!?'					New val is: 'Whazzzzup!?'
+> gcc -o test-data/greet_main2 test-input/greet_main.o test-d	> gcc -o test-data/greet_main2 test-input/greet_main.o test-d
+> test-data/greet_main2						> test-data/greet_main2
+Whazzzzup!?							Whazzzzup!?
+Whazzzzup!?							Whazzzzup!?
+Whazzzzup!?							Whazzzzup!?
+Whazzzzup!?							Whazzzzup!?
+Whazzzzup!?							Whazzzzup!?
+-------------------------------------
+TEST  9 Basic Error Conditions              : FAIL: Output Incorrect
+-------------------------------------
+OUTPUT: EXPECT   vs   ACTUAL
+							      >	> unset _mlre _mlIFS _mlshdbg
+							      >	> '[' 0 = 1 ']'
+							      >	> '[' -n x ']'
+							      >	> _mlIFS=' 	
+							      >	'
+							      >	> IFS=' '
+							      >	> '[' -n '' ']'
+							      >	>> /usr/bin/tclsh /usr/local/modules-tcl/libexec/modulecmd.tc
+							      >	> eval 'module() {
+							      >	   unset _mlre _mlIFS _mlshdbg;
+							      >	   if [ "${MODULES_SILENT_SHELL_DEBUG:-0}" = '\''1'\'' ]; the
+							      >	      case "$-" in
+							      >	         *v*x*) set +vx; _mlshdbg='\''vx'\'' ;;
+							      >	         *v*) set +v; _mlshdbg='\''v'\'' ;;
+							      >	         *x*) set +x; _mlshdbg='\''x'\'' ;;
+							      >	         *) _mlshdbg='\'''\'' ;;
+							      >	      esac;
+							      >	   fi;
+							      >	   if [ -n "${IFS+x}" ]; then
+							      >	      _mlIFS=$IFS;
+							      >	   fi;
+							      >	   IFS='\'' '\'';
+							      >	   for _mlv in ${MODULES_RUN_QUARANTINE:-}; do
+							      >	      if [ "${_mlv}" = "${_mlv##*[!A-Za-z0-9_]}" -a "${_mlv}"
+							      >	         if [ -n "`eval '\''echo ${'\''$_mlv'\''+x}'\''`" ]; 
+							      >	            _mlre="${_mlre:-}${_mlv}_modquar='\''`eval '\''ec
+							      >	         fi;
+							      >	         _mlrv="MODULES_RUNENV_${_mlv}";
+							      >	         _mlre="${_mlre:-}${_mlv}='\''`eval '\''echo ${'\''$_
+							      >	      fi;
+							      >	   done;
+							      >	   if [ -n "${_mlre:-}" ]; then
+							      >	      eval `eval ${_mlre}/usr/bin/tclsh /usr/local/modules-tc
+							      >	   else
+							      >	      eval `/usr/bin/tclsh /usr/local/modules-tcl/libexec/mod
+							      >	   fi;
+							      >	   _mlstatus=$?;
+							      >	   if [ -n "${_mlIFS+x}" ]; then
+							      >	      IFS=$_mlIFS;
+							      >	   else
+							      >	      unset IFS;
+							      >	   fi;
+							      >	   if [ -n "${_mlshdbg:-}" ]; then
+							      >	      set -$_mlshdbg;
+							      >	   fi;
+							      >	   unset _mlre _mlv _mlrv _mlIFS _mlshdbg;
+							      >	   return $_mlstatus;
+							      >	};
+							      >	MODULES_CMD=/usr/local/modules-tcl/libexec/modulecmd.tcl; exp
+							      >	MODULESHOME=/usr/local/modules-tcl; export MODULESHOME;
+							      >	test 0;'
+							      >	>> MODULES_CMD=/usr/local/modules-tcl/libexec/modulecmd.tcl
+							      >	>> export MODULES_CMD
+							      >	>> MODULESHOME=/usr/local/modules-tcl
+							      >	>> export MODULESHOME
+							      >	>> test 0
+							      >	> '[' -n x ']'
+							      >	> IFS=' 	
+							      >	'
+							      >	> unset _mlIFS
+							      >	> unset _mlre _mlv _mlrv
+							      >	> '[' 0 = 1 ']'
+							      >	> '[' -t 2 ']'
+							      >	> export -f module
+							      >	> export -f switchml
+							      >	> ENV=/usr/local/modules-tcl/init/profile.sh
+							      >	> export ENV
+							      >	> BASH_ENV=/usr/local/modules-tcl/init/bash
+							      >	> export BASH_ENV
+							      >	> '[' 4 -ge 3 ']'
+							      >	> [[ hxBc =~ i ]]
+							      >	> [[ ! :/usr/local/modules-tcl/bin:/usr/local/sbin:/usr/local
+							      >	>> manpath
+							      >	> manpath=/usr/local/modules-tcl/share/man:/usr/man:/usr/shar
+							      >	> [[ ! :/usr/local/modules-tcl/share/man:/usr/man:/usr/share/
+							      >	> '[' -n '' ']'
+> ./patchsym test-input/globals.c string1 string		> ./patchsym test-input/globals.c string1 string
+GET mode							GET mode
+ERROR: Magic bytes wrong, this is not an ELF file	      |	'test-input/globals.c' does not appear to be a binary departm
+> ./patchsym test-input/naked_globals string1 string		> ./patchsym test-input/naked_globals string1 string
+GET mode							GET mode
+ERROR: Couldn't find symbol table				ERROR: Couldn't find symbol table
+> ./patchsym test-input/globals nada string			> ./patchsym test-input/globals nada string
+GET mode							GET mode
+.data section							.data section
+- 23 section index						- 23 section index
+- 12320 bytes offset from start of file				- 12320 bytes offset from start of file
+- 0x4020 preferred virtual address for .data			- 0x4020 preferred virtual address for .data
+.symtab section							.symtab section
+- 26 section index						- 26 section index
+- 12504 bytes offset from start of file				- 12504 bytes offset from start of file
+- 1680 bytes total size						- 1680 bytes total size
+- 24 bytes per entry						- 24 bytes per entry
+- 70 entries							- 70 entries
+ERROR: Symbol 'nada' not found					ERROR: Symbol 'nada' not found
+> ./patchsym test-input/globals main string			> ./patchsym test-input/globals main string
+GET mode							GET mode
+.data section							.data section
+- 23 section index						- 23 section index
+- 12320 bytes offset from start of file				- 12320 bytes offset from start of file
+- 0x4020 preferred virtual address for .data			- 0x4020 preferred virtual address for .data
+.symtab section							.symtab section
+- 26 section index						- 26 section index
+- 12504 bytes offset from start of file				- 12504 bytes offset from start of file
+- 1680 bytes total size						- 1680 bytes total size
+- 24 bytes per entry						- 24 bytes per entry
+- 70 entries							- 70 entries
+Found Symbol 'main'						Found Symbol 'main'
+- 65 symbol index						- 65 symbol index
+- 0x1139 value							- 0x1139 value
+- 173 size							- 173 size
+- 13 section index						- 13 section index
+ERROR: 'main' in section 13, not in .data section 23		ERROR: 'main' in section 13, not in .data section 23
+> ./patchsym test-input/globals string2 unknown			> ./patchsym test-input/globals string2 unknown
+GET mode							GET mode
+.data section							.data section
+- 23 section index						- 23 section index
+- 12320 bytes offset from start of file				- 12320 bytes offset from start of file
+- 0x4020 preferred virtual address for .data			- 0x4020 preferred virtual address for .data
+.symtab section							.symtab section
+- 26 section index						- 26 section index
+- 12504 bytes offset from start of file				- 12504 bytes offset from start of file
+- 1680 bytes total size						- 1680 bytes total size
+- 24 bytes per entry						- 24 bytes per entry
+- 70 entries							- 70 entries
+Found Symbol 'string2'						Found Symbol 'string2'
+- 66 symbol index						- 66 symbol index
+- 0x4060 value							- 0x4060 value
+- 64 size							- 64 size
+- 23 section index						- 23 section index
+- 64 offset in .data of value for symbol			- 64 offset in .data of value for symbol
+ERROR: Unsupported data kind 'unknown'				ERROR: Unsupported data kind 'unknown'
+-------------------------------------
+TEST 10 Error: globals2 string1 too long    : FAIL: Output Incorrect
+-------------------------------------
+OUTPUT: EXPECT   vs   ACTUAL
+							      >	> unset _mlre _mlIFS _mlshdbg
+							      >	> '[' 0 = 1 ']'
+							      >	> '[' -n x ']'
+							      >	> _mlIFS=' 	
+							      >	'
+							      >	> IFS=' '
+							      >	> '[' -n '' ']'
+							      >	>> /usr/bin/tclsh /usr/local/modules-tcl/libexec/modulecmd.tc
+							      >	> eval 'module() {
+							      >	   unset _mlre _mlIFS _mlshdbg;
+							      >	   if [ "${MODULES_SILENT_SHELL_DEBUG:-0}" = '\''1'\'' ]; the
+							      >	      case "$-" in
+							      >	         *v*x*) set +vx; _mlshdbg='\''vx'\'' ;;
+							      >	         *v*) set +v; _mlshdbg='\''v'\'' ;;
+							      >	         *x*) set +x; _mlshdbg='\''x'\'' ;;
+							      >	         *) _mlshdbg='\'''\'' ;;
+							      >	      esac;
+							      >	   fi;
+							      >	   if [ -n "${IFS+x}" ]; then
+							      >	      _mlIFS=$IFS;
+							      >	   fi;
+							      >	   IFS='\'' '\'';
+							      >	   for _mlv in ${MODULES_RUN_QUARANTINE:-}; do
+							      >	      if [ "${_mlv}" = "${_mlv##*[!A-Za-z0-9_]}" -a "${_mlv}"
+							      >	         if [ -n "`eval '\''echo ${'\''$_mlv'\''+x}'\''`" ]; 
+							      >	            _mlre="${_mlre:-}${_mlv}_modquar='\''`eval '\''ec
+							      >	         fi;
+							      >	         _mlrv="MODULES_RUNENV_${_mlv}";
+							      >	         _mlre="${_mlre:-}${_mlv}='\''`eval '\''echo ${'\''$_
+							      >	      fi;
+							      >	   done;
+							      >	   if [ -n "${_mlre:-}" ]; then
+							      >	      eval `eval ${_mlre}/usr/bin/tclsh /usr/local/modules-tc
+							      >	   else
+							      >	      eval `/usr/bin/tclsh /usr/local/modules-tcl/libexec/mod
+							      >	   fi;
+							      >	   _mlstatus=$?;
+							      >	   if [ -n "${_mlIFS+x}" ]; then
+							      >	      IFS=$_mlIFS;
+							      >	   else
+							      >	      unset IFS;
+							      >	   fi;
+							      >	   if [ -n "${_mlshdbg:-}" ]; then
+							      >	      set -$_mlshdbg;
+							      >	   fi;
+							      >	   unset _mlre _mlv _mlrv _mlIFS _mlshdbg;
+							      >	   return $_mlstatus;
+							      >	};
+							      >	MODULES_CMD=/usr/local/modules-tcl/libexec/modulecmd.tcl; exp
+							      >	MODULESHOME=/usr/local/modules-tcl; export MODULESHOME;
+							      >	test 0;'
+							      >	>> MODULES_CMD=/usr/local/modules-tcl/libexec/modulecmd.tcl
+							      >	>> export MODULES_CMD
+							      >	>> MODULESHOME=/usr/local/modules-tcl
+							      >	>> export MODULESHOME
+							      >	>> test 0
+							      >	> '[' -n x ']'
+							      >	> IFS=' 	
+							      >	'
+							      >	> unset _mlIFS
+							      >	> unset _mlre _mlv _mlrv
+							      >	> '[' 0 = 1 ']'
+							      >	> '[' -t 2 ']'
+							      >	> export -f module
+							      >	> export -f switchml
+							      >	> ENV=/usr/local/modules-tcl/init/profile.sh
+							      >	> export ENV
+							      >	> BASH_ENV=/usr/local/modules-tcl/init/bash
+							      >	> export BASH_ENV
+							      >	> '[' 4 -ge 3 ']'
+							      >	> [[ hxBc =~ i ]]
+							      >	> [[ ! :/usr/local/modules-tcl/bin:/usr/local/sbin:/usr/local
+							      >	>> manpath
+							      >	> manpath=/usr/local/modules-tcl/share/man:/usr/man:/usr/shar
+							      >	> [[ ! :/usr/local/modules-tcl/share/man:/usr/man:/usr/share/
+							      >	> '[' -n '' ']'
+> cp test-input/globals test-data/globals2			> cp test-input/globals test-data/globals2
+> test-data/globals2						> test-data/globals2
+string1: Hello							string1: Hello
+string2: Goodbye cruel world					string2: Goodbye cruel world
+string3: All your bass						string3: All your bass
+int1: aabbccdd							int1: aabbccdd
+int2: ffeeddcc							int2: ffeeddcc
+a_doub: 1.234567						a_doub: 1.234567
+> ./patchsym test-data/globals2 string1 string 'Adios, muchac	> ./patchsym test-data/globals2 string1 string 'Adios, muchac
+SET mode							SET mode
+.data section							.data section
+- 23 section index						- 23 section index
+- 12320 bytes offset from start of file				- 12320 bytes offset from start of file
+- 0x4020 preferred virtual address for .data			- 0x4020 preferred virtual address for .data
+.symtab section							.symtab section
+- 26 section index						- 26 section index
+- 12504 bytes offset from start of file				- 12504 bytes offset from start of file
+- 1680 bytes total size						- 1680 bytes total size
+- 24 bytes per entry						- 24 bytes per entry
+- 70 entries							- 70 entries
+Found Symbol 'string1'						Found Symbol 'string1'
+- 53 symbol index						- 53 symbol index
+- 0x4040 value							- 0x4040 value
+- 8 size							- 8 size
+- 23 section index						- 23 section index
+- 32 offset in .data of value for symbol			- 32 offset in .data of value for symbol
+string value: 'Hello'						string value: 'Hello'
+ERROR: Cannot change symbol 'string1': existing size too smal	ERROR: Cannot change symbol 'string1': existing size too smal
+Cur Size: 8 'Hello'						Cur Size: 8 'Hello'
+New Size: 29 'Adios, muchachos. Lo siento.'		      |	New Size: 28 'Adios, muchachos. Lo siento.'
+> test-data/globals2						> test-data/globals2
+string1: Hello							string1: Hello
+string2: Goodbye cruel world					string2: Goodbye cruel world
+string3: All your bass						string3: All your bass
+int1: aabbccdd							int1: aabbccdd
+int2: ffeeddcc							int2: ffeeddcc
+a_doub: 1.234567						a_doub: 1.234567
+-------------------------------------
+Finished:
+ 0 / 10 Normal correct
+
+RUNNING VALGRIND TESTS
+TEST  1 get globals string1                 : Valgrind OK
+TEST  2 get globals string2                 : Valgrind OK
+TEST  3 get globals nonexist not found      : Valgrind OK
+TEST  4 set globals2 string1                : Valgrind OK
+TEST  5 set globals2 string1-3              : Valgrind OK
+TEST  6 set list_main2 PROMPT               : Valgrind OK
+TEST  7 set quote_main2 correct             : Valgrind OK
+TEST  8 set greet_funcs.o greeting          : Valgrind OK
+TEST  9 Basic Error Conditions              : Valgrind OK
+TEST 10 Error: globals2 string1 too long    : Valgrind OK
+Finished:
+10 / 10 Valgrind correct
+
+=====================================
+OVERALL:
+ 0 / 10 Normal correct
+10 / 10 Valgrind correct
+RESULTS: 10 / 20 points for normal/valgrind tests

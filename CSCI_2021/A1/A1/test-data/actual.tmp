@@ -1,0 +1,2 @@
+./test_hash_main.sh: line 85: 13149 Done                    printf "%s\n" "${input[i]}"
+     13150 Segmentation fault      | ./hash_main -echo

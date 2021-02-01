@@ -1,0 +1,106 @@
+==13245== Memcheck, a memory error detector
+==13245== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==13245== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==13245== Command: ./hash_main -echo
+==13245== 
+==13245== Conditional jump or move depends on uninitialised value(s)
+==13245==    at 0x1094C2: hashmap_free_table (hash_funcs.c:140)
+==13245==    by 0x109C09: hashmap_expand (hash_funcs.c:383)
+==13245==    by 0x109014: main (hash_main.c:127)
+==13245== 
+==13245== Invalid read of size 8
+==13245==    at 0x1094B2: hashmap_free_table (hash_funcs.c:143)
+==13245==    by 0x109C09: hashmap_expand (hash_funcs.c:383)
+==13245==    by 0x109014: main (hash_main.c:127)
+==13245==  Address 0x5230730 is 256 bytes inside a block of size 264 free'd
+==13245==    at 0x4C30D3B: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==13245==    by 0x1094AD: hashmap_free_table (hash_funcs.c:142)
+==13245==    by 0x109C09: hashmap_expand (hash_funcs.c:383)
+==13245==    by 0x109014: main (hash_main.c:127)
+==13245==  Block was alloc'd at
+==13245==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==13245==    by 0x10920C: hashmap_put (hash_funcs.c:63)
+==13245==    by 0x108CB6: main (hash_main.c:61)
+==13245== 
+==13245== 
+==13245== Process terminating with default action of signal 11 (SIGSEGV)
+==13245==  Access not within mapped region at address 0x100
+==13245==    at 0x1094B2: hashmap_free_table (hash_funcs.c:143)
+==13245==    by 0x109C09: hashmap_expand (hash_funcs.c:383)
+==13245==    by 0x109014: main (hash_main.c:127)
+==13245==  If you believe this happened as a result of a stack
+==13245==  overflow in your program's main thread (unlikely but
+==13245==  possible), you can try to increase the size of the
+==13245==  main thread stack using the --main-stacksize= flag.
+==13245==  The main thread stack size used in this run was 8388608.
+Hashmap Demo
+Commands:
+  hashcode <key>   : prints out the numeric hash code for the given key (does not change the hash map)
+  put <key> <val>  : inserts the given key/val into the hash map, overwrites existing values if present
+  get <key>        : prints the value associated with the given key or NOT FOUND
+  print            : shows contents of the hashmap ordered by how they appear in the table
+  structure        : prints detailed structure of the hash map
+  clear            : reinitializes hash map to be empty with default size
+  save <file>      : writes the contents of the hash map the given file
+  load <file>      : clears the current hash map and loads the one in the given file
+  next_prime <int> : if <int> is prime, prints it, otherwise finds the next prime and prints it
+  expand           : expands memory size of hashmap to reduce its load factor
+  quit             : exit the program
+HM> put Kyle alive
+HM> put Kenny dead
+HM> put Stan alive
+HM> put Cartman jerk
+HM> put Timmy TIMMY!
+HM> put MrGarrison odd
+HM> put MrHat very-odd
+HM> put Butters lovable
+HM> put Chef disavowed
+HM> structure
+item_count: 9
+table_size: 5
+load_factor: 1.8000
+  0  :  {(1701607755) Kyle : alive}  {(31069370171154755) Cartman : jerk}  {(32495402392778050) Butters : lovable}
+  1  :  {(1851880531) Stan : alive}  {(499848344141) MrHat : very-odd}
+  2  :  {(521543771467) Kenny : dead}  {(8316304022500241997) MrGarrison : odd}
+  3  :  {(521526929748) Timmy : TIMMY!}
+  4  :  {(1717921859) Chef : disavowed}
+HM> expand
+==13245== 
+==13245== HEAP SUMMARY:
+==13245==     in use at exit: 8,184 bytes in 17 blocks
+==13245==   total heap usage: 22 allocs, 5 frees, 21,264 bytes allocated
+==13245== 
+==13245== 1,320 bytes in 1 blocks are still reachable in loss record 1 of 4
+==13245==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==13245==    by 0x10916C: hashmap_init (hash_funcs.c:41)
+==13245==    by 0x108AFE: main (hash_main.c:30)
+==13245== 
+==13245== 1,584 bytes in 6 blocks are still reachable in loss record 2 of 4
+==13245==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==13245==    by 0x10920C: hashmap_put (hash_funcs.c:63)
+==13245==    by 0x108CB6: main (hash_main.c:61)
+==13245== 
+==13245== 2,376 bytes in 9 blocks are still reachable in loss record 3 of 4
+==13245==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==13245==    by 0x10920C: hashmap_put (hash_funcs.c:63)
+==13245==    by 0x109BDB: hashmap_expand (hash_funcs.c:379)
+==13245==    by 0x109014: main (hash_main.c:127)
+==13245== 
+==13245== 2,904 bytes in 1 blocks are still reachable in loss record 4 of 4
+==13245==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==13245==    by 0x10916C: hashmap_init (hash_funcs.c:41)
+==13245==    by 0x109B96: hashmap_expand (hash_funcs.c:374)
+==13245==    by 0x109014: main (hash_main.c:127)
+==13245== 
+==13245== LEAK SUMMARY:
+==13245==    definitely lost: 0 bytes in 0 blocks
+==13245==    indirectly lost: 0 bytes in 0 blocks
+==13245==      possibly lost: 0 bytes in 0 blocks
+==13245==    still reachable: 8,184 bytes in 17 blocks
+==13245==         suppressed: 0 bytes in 0 blocks
+==13245== 
+==13245== For counts of detected and suppressed errors, rerun with: -v
+==13245== Use --track-origins=yes to see where uninitialised values come from
+==13245== ERROR SUMMARY: 5 errors from 2 contexts (suppressed: 0 from 0)
+./test_hash_main.sh: line 157: 13244 Done                    printf "%s\n" "${input[i]}"
+     13245 Segmentation fault      | $VALGRIND ./hash_main -echo
