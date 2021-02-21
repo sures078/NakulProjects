@@ -1,7 +1,7 @@
 # CSCI 1933 Projects
 
 Project 1
-  - Fractals
+  - Employed key object oriented programming principle, inheritance, to recursively create fractals using various shape classes
 
 Project 2
   - Databases
