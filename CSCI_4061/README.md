@@ -1,14 +1,14 @@
 # CSCI 4061 Projects
 
 P1
-  - Map Reduce Word Count Application 
+  - Learned the basics of systems programming through implementing mapper and reducer processes in order to create a word couting application 
 
 P2
-  - Message Passing for P1
+  - Implemented process communication capabilities for the word counting application using the operating system's built in message queues
 
 P3
-  - Multi Threaded Web Server 
+  - Built a multi threaded web server with dispatch and worker threads which received and serviced web requests respectively   
 
 P4
-  - Network Communication for P3 (Server Client Model) 
+  - Programmed the network communication capability for the server client model desribed in project 3 
 
