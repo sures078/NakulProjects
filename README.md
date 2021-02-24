@@ -8,6 +8,4 @@ CSCI 1933: Intro to Data Structures & Algorithms
 
 CSCI 2021: Intro to Machine Architecture
 
-CSCI 2041: Advanced Programming Principles
-
 CSCI 4061: Intro to Operating Systems 
